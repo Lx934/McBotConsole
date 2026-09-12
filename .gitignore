@@ -1,0 +1,46 @@
+# ============ C# 编译产物 ============
+bin/
+obj/
+*.user
+*.suo
+*.userprefs
+.vs/
+*.pdb
+*.cache
+
+# ============ Node ============
+node_modules/
+backend/dist/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ============ 运行时生成（不提交） ============
+backend/config.json
+backend/logs/
+backend/logs_pack/
+backend/reports/
+backend/plugins.json
+backend/plugins/
+backend/plugins_py/
+backend/success_log*.json
+backend/throttle_stats.json
+backend/*.log
+
+# ============ 保留（要提交的） ============
+!backend/names.txt
+!backend/package.json
+!backend/package-lock.json
+!backend/index.js
+
+# ============ 系统文件 ============
+Thumbs.db
+Desktop.ini
+.DS_Store
+*.swp
+*~
+
+# ============ 编辑器 ============
+.idea/
+.vscode/
+*.sln.docstates
