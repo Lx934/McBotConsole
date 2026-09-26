@@ -1,0 +1,40 @@
+packages/
+# ===== VS 编译产物 =====
+bin/
+obj/
+.vs/
+*.user
+*.suo
+*.pdb
+*.cache
+
+# ===== Node =====
+backend/node_modules/
+backend/dist/
+backend/mc-bot-backend.exe
+backend/logs/
+backend/logs_pack/
+backend/success_log_*.json
+backend/throttle_stats.json
+
+# ===== 用户运行时文件 =====
+backend/config.json
+backend/plugins.json
+backend/player_pool.txt
+patches/
+
+# ===== 补丁系统 =====
+tools/keys/
+tools/patch-work/
+*.mcpatch
+
+# ===== updater 编译产物 =====
+updater/updater.exe
+updater/*.o
+updater/*.obj
+
+# ===== 临时文件 =====
+*.log
+*.tmp
+Thumbs.db
+.DS_Store
