@@ -704,12 +704,6 @@ A: **No, and it shouldn't.** The program only logs throttling information; it do
 
 ---
 
-## 📜 License
-
-[MIT License](LICENSE)
-
----
-
 ## 🙏 Acknowledgments
 
 - [mineflayer](https://github.com/PrismarineJS/mineflayer) — Minecraft protocol implementation
