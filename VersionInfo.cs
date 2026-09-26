@@ -10,7 +10,7 @@ namespace JBSS261A
         /// 格式：YYHn（例如 26H1、26H2）
         /// 不读系统时间，不读环境变量。
         /// </summary>
-        public const string CURRENT_VERSION = "26H1";
+        public const string CURRENT_VERSION = "26H2";
 
         public class ParsedVersion : IComparable<ParsedVersion>
         {
