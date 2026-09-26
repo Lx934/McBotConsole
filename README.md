@@ -358,6 +358,370 @@ A：**不能，也不应该。** 程序只会记录限流信息，不会绕过�
 
 ---
 
+# McBotConsole
+
+A batch login client for Minecraft Java Edition servers, used to test the capacity of **servers you own or have written authorization to test**.
+
+GUI (C# WinForms) + Node.js backend (mineflayer). Supports batch login, true concurrency, proxy pools, player pools, plugin system, and hot patching.
+
+**Current version**: 26H2 | **Latest release**: [Releases](https://github.com/Lx934/McBotConsole/releases)
+
+---
+
+## ⚠️ Disclaimer
+
+**This project is intended only for testing servers you own or have written authorization to test.**
+
+- ❌ Do not use for attacking, stress-testing, or harassing servers you don't own
+- ❌ Do not use to bypass server anti-bot mechanisms
+- ❌ Do not use for any purpose that violates local laws or regulations
+
+Any consequences arising from the use of this tool are the sole responsibility of the user. The author is not liable for any misuse.
+
+---
+
+## ✨ Features
+
+### Core Capabilities
+
+- **Batch login**: Minecraft protocol implementation based on [mineflayer](https://github.com/PrismarineJS/mineflayer)
+- **True concurrency**: Each bot runs independently in the background, no longer serialized
+- **Proxy pool**: Supports SOCKS4 / SOCKS5 / HTTP / HTTPS with automatic health tracking and rotation
+- **Player pool**: Reads names from a file in order, each used once; configurable stop-or-loop on exhaustion
+- **English name dictionary**: Built-in common English names, customizable via `names.txt`
+- **Auto-reconnect**: Reconnects after disconnect (max retries configurable)
+- **Multi-instance support**: Logs and success records isolated by process PID
+
+### Server Diagnostics
+
+- **Pure DNS resolution**: No ICMP dependency; works even when the server blocks ping
+- **Server analyzer**: DNS / Ping / TCP / SLP / Query / plugin probing
+- **Plugin detection**: Scans server plugin list via Tab completion
+- **Debug console**: `help` / `status` / `bots` / `kick` / `proxies` / `memory`, etc.
+
+### Plugin System
+
+- **Dual-language support**: Node.js plugins + Python plugins
+- **Permission levels**: 0 read-only / 1 chat / 2 control / 3 system-level
+- **Hot reload**: Load / unload / reload plugins without restarting
+- **Lifecycle hooks**: `beforeConnect` / `afterConnect` / `onLogin` / `onKick` / `onError` / `onDisconnect` / `connectionResult`
+
+### Patch System
+
+- **Hot patches**: `.mcpatch` format, no need to redownload the full package
+- **RSA-2048 signature**: Only patches signed with the official private key can be applied
+- **Tamper-proof**: manifest SHA256 verification
+- **Replay protection**: One-time nonce
+- **Official verification**: Patch ID must exist in the official GitHub tag list
+- **Auto backup**: Backup before replacement, one-click rollback
+- **Path traversal protection**: Patches cannot write outside the program directory
+- **Auto rollback on failure**: Automatically restores if replacement fails midway
+
+### Update Check
+
+- Silent check for the latest version on startup
+- Manual check via menu: Help → Check for Updates
+- Shows release notes, publish time, and download link
+- Warns "old patches may become invalid" when applied patches are detected
+- 10-minute in-memory cache to avoid hitting the GitHub API rate limit
+
+---
+
+## 🖼 Screenshots
+
+> To be added
+
+---
+
+## 🖥 System Requirements
+
+| Item | Requirement |
+|---|---|
+| OS | Windows 10 / 11 (64-bit) |
+| .NET Framework | 4.8 or higher (bundled with Win10 1903+) |
+| Disk space | At least 500 MB free |
+| Network | `api.github.com` accessible for update checks |
+
+**Node.js is not required** — the backend is packaged into a standalone exe via pkg.
+
+---
+
+## 🚀 Quick Start
+
+### 1. Download
+
+Download the latest `McBotConsole-26H2.zip` from the [Releases](https://github.com/Lx934/McBotConsole/releases) page.
+
+**Verify SHA256** (PowerShell):
+
+```powershell
+Get-FileHash .\McBotConsole-26H2.zip -Algorithm SHA256
+```
+
+Compare with the hash published on the release page. Do not use if they don't match.
+
+### 2. Extract
+
+Extract to any directory. **Do not use a path containing Chinese characters or spaces.**
+
+### 3. Launch
+
+Double-click `JBSS261A.exe`.
+
+### 4. Configure
+
+Fill in the top bar:
+- Server address (IP or domain)
+- Port (default 25565)
+- Game version (must match the server)
+- Attempt count / concurrency
+
+Click **⚙ Settings** to configure connection parameters, proxy, player name mode, etc.
+
+### 5. Run
+
+Click **▶ Start** to begin the task.
+
+---
+
+## 📅 Versioning
+
+The project uses a **half-year version + patch** numbering scheme:
+
+| Type | Format | Example |
+|---|---|---|
+| Major version | `YYHn` | `26H1` (2026 H1), `26H2` (2026 H2) |
+| Patch | `YYHnuN` | `26H1u1`, `26H2u3` |
+
+**Patch compatibility rules**:
+
+- 26H2 can load patches for 26H1 / 26H2 (same H number, backwards compatible)
+- Cross-year patches are incompatible (e.g., a 25H2 patch cannot be used on 26H2)
+- If a new version modified a file targeted by the patch, the patch will warn "target modified" and require confirmation
+
+---
+
+## 🧩 Patch System
+
+### Applying a Patch
+
+1. Download the `.mcpatch` file from an official source
+2. Place it in the `patches/` folder in the program directory
+3. Open the program → click **🧩 Patches**
+4. Select the patch → click **Apply**
+5. The program will restart automatically (when `requiresRestart: true`)
+
+### Rolling Back a Patch
+
+1. Open the program → click **🧩 Patches**
+2. Find the applied patch → click **Rollback**
+
+**Note**: Rollback only restores the contents of overwritten files; it does **not** delete files added by the patch.
+
+### Security Mechanisms
+
+- Patches must be signed with the official private key
+- Patch ID must exist in the official GitHub tag list
+- Patch contents are protected by SHA256
+- Each patch can only be applied once (nonce replay protection)
+
+---
+
+## 🔄 Update Check
+
+The program **silently checks** for new versions 3 seconds after startup:
+
+- When a new version is available, `🔔 New version 26H2 available, click to view` appears in the status bar
+- Clicking opens a dialog with release notes and a download link
+
+You can also trigger a manual check anytime via **Help → Check for Updates**.
+
+---
+
+## 🔌 Plugin Development
+
+### Node.js Plugins
+
+Directory structure:
+
+```
+backend/plugins/<plugin-name>/
+├── <plugin-name>.js      # Main file
+├── config/
+│   └── <plugin-name>.json
+└── log/
+```
+
+`<plugin-name>.js` example:
+
+```javascript
+module.exports = {
+    name: 'my-plugin',
+    version: '1.0.0',
+    author: 'YourName',
+    description: 'Plugin description',
+    requiredPermission: 0,
+
+    init(config, hooks, logger, api) {
+        hooks.register('onLogin', (bot, ctx) => {
+            logger.info(`Bot ${ctx.botId} logged in`);
+        });
+    },
+
+    unload(reason, logger) {
+        logger.info(`Plugin unloaded: ${reason}`);
+    }
+};
+```
+
+### Python Plugins
+
+Directory structure:
+
+```
+backend/plugins_py/<plugin-name>/
+├── plugin.json
+├── main.py
+└── config.json
+```
+
+`plugin.json`:
+
+```json
+{
+    "name": "my-plugin",
+    "version": "1.0.0",
+    "author": "YourName",
+    "description": "Plugin description",
+    "usage": "Usage instructions",
+    "main": "main.py"
+}
+```
+
+For detailed development guide, see [PLUGIN_DEVELOPMENT.md](PLUGIN_DEVELOPMENT.md).
+
+---
+
+## 📁 Directory Structure (Release Package)
+
+```
+McBotConsole-26H2/
+├── JBSS261A.exe                          ← Main program
+├── JBSS261A.exe.config
+├── System.Text.Json.dll
+├── System.Threading.Tasks.Extensions.dll
+├── System.Memory.dll
+├── System.Buffers.dll
+├── System.Numerics.Vectors.dll
+├── System.IO.Pipelines.dll
+├── System.Runtime.CompilerServices.Unsafe.dll
+├── System.Text.Encodings.Web.dll
+├── Microsoft.Bcl.AsyncInterfaces.dll
+├── updater.exe                           ← Patch updater
+├── README.txt
+└── backend/
+    ├── mc-bot-backend.exe                ← Node backend (pkg-packaged)
+    ├── names.txt                         ← English name dictionary
+    └── config.json                       ← Default config
+```
+
+Auto-generated at runtime (no need to create manually):
+
+- `backend/player_pool.txt` (created when player pool is first enabled)
+- `backend/logs/` (log directory)
+- `patches/` (patch directory)
+- `patches/applied.jsonl` (patch application record)
+
+---
+
+## 🛠 Building from Source
+
+### Prerequisites
+
+- Visual Studio 2022 (with .NET Framework 4.8 SDK)
+- Node.js 18 or 20 (for packaging the backend)
+- MinGW-w64 (for compiling the updater)
+- pkg or @yao-pkg/pkg (Node packaging tool)
+
+### Building the C# Main Program
+
+```
+Open JBSS261A.sln
+→ Select Release configuration
+→ Build Solution
+Output: bin\Release\JBSS261A.exe
+```
+
+### Packaging the Node Backend
+
+```cmd
+cd backend
+npm install
+pkg index.js --target node18-win-x64 --output mc-bot-backend.exe
+```
+
+### Compiling the Updater
+
+```cmd
+cd updater
+g++ updater.cpp -o updater.exe -std=c++11 -static -mwindows -lshell32
+```
+
+### Assembling the Release Package
+
+Refer to the "Directory Structure" section.
+
+---
+
+## ❓ FAQ
+
+**Q: The log keeps showing "Backend not ready" after startup**
+
+A: Check whether `backend/mc-bot-backend.exe` exists. If missing, the release package is incomplete.
+
+**Q: All logins fail, the log shows `Connection throttled`**
+
+A: The server has connection throttling enabled. Solutions:
+1. Increase **Settings → Connection → Connection Interval**
+2. Use a proxy pool
+3. Check the server's `spigot.yml` `connection-throttle` setting
+
+**Q: Concurrency is set to 6, but actual concurrency is far below 6**
+
+A: Fixed in 26H2. If it still occurs, check whether many retries are occupying concurrency slots.
+
+**Q: The program won't start after applying a patch**
+
+A: Manually restore files from `patches/backup/<patch-id>/`, or use the program's **🧩 Patches → Rollback** feature.
+
+**Q: Update check fails**
+
+A: Possibly hit the GitHub API rate limit (60 requests/hour for unauthenticated users). Retry later, or configure a proxy.
+
+**Q: Can it bypass a server's anti-bot mechanism?**
+
+A: **No, and it shouldn't.** The program only logs throttling information; it does not bypass anything. Adjust your connection pace yourself.
+
+---
+
+## 📜 License
+
+[MIT License](LICENSE)
+
+---
+
+## 🙏 Acknowledgments
+
+- [mineflayer](https://github.com/PrismarineJS/mineflayer) — Minecraft protocol implementation
+- [PrismarineJS](https://github.com/PrismarineJS) — Related toolchain
+- All users who submitted issues and PRs
+
+---
+
+**Project Home**: https://github.com/Lx934/McBotConsole
+**Issues**: https://github.com/Lx934/McBotConsole/issues
+**Latest Release**: https://github.com/Lx934/McBotConsole/releases
+
 **项目主页**：https://github.com/Lx934/McBotConsole
 **问题反馈**：https://github.com/Lx934/McBotConsole/issues
 **最新发布**：https://github.com/Lx934/McBotConsole/releases
