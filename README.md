@@ -69,13 +69,16 @@ Minecraft Java 版服务器批量登录客户端，用于测试**自己拥有或
 
 ## 🖼 截图
 
-> 待补充
+<img width="1440" height="860" alt="5" src="https://github.com/user-attachments/assets/f0f06b24-b839-4969-96ae-631bdcd49af0" />
+
+<img width="1440" height="860" alt="4" src="https://github.com/user-attachments/assets/babdf0c5-6926-46f6-95bc-bcef82edfcf0" />
 
 ---
 
 ## 🖥 系统要求
 
 | 项 | 要求 |
+
 |---|---|
 | 操作系统 | Windows 10 / 11（64 位） |
 | .NET Framework | 4.8 或更高（Win10 1903+ 自带） |
@@ -429,7 +432,10 @@ Any consequences arising from the use of this tool are the sole responsibility o
 
 ## 🖼 Screenshots
 
-> To be added
+<img width="1440" height="860" alt="5" src="https://github.com/user-attachments/assets/876ba165-a210-4f8f-b243-3cc9405e3d3a" />
+
+<img width="1440" height="860" alt="4" src="https://github.com/user-attachments/assets/c9e647f2-e333-4bac-b4c8-1f5d8f3cd121" />
+
 
 ---
 
